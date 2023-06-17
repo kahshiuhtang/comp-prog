@@ -18,9 +18,6 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T>{
             parent = null;
         }
 
-        public int balanceFactor(){
-            return balanceFactor;
-        }
     }
 
     private Node<T> root;
@@ -71,7 +68,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T>{
     private void rebalanceTree(Stack<Node<T>> stk){
         while(!stk.empty()){
             Node<T> node = stk.pop();
-            if (Math.abs(node.balanceFactor()) > 1) {
+            if (Math.abs(node.balanceFactor) > 1) {
 
             }
         }
@@ -100,7 +97,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T>{
         }
         Z.left = X;
         X.parent = Z;
-        if(Z.balanceFactor() == 0){
+        if(Z.balanceFactor == 0){
             X.balanceFactor = 1;
             Z.balanceFactor = -1;
         }else{
@@ -111,7 +108,21 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T>{
     }
     
     private Node<T> rotateRight(Node<T> X, Node<T> Z){
-        return null;
+        Node<T> t = Z.right;
+        X.left = t;
+        if(t != null){
+            t.parent = X;
+        }
+        Z.left = X;
+        X.parent = Z;
+        if (Z.balanceFactor == 0) {
+            X.balanceFactor = 1;
+            Z.balanceFactor = -1;
+        } else {
+            X.balanceFactor = 0;
+            Z.balanceFactor = 0;
+        }
+        return Z;
     }
 
     private Node<T> rotateLeftRight(Node<T> X, Node<T> Z) {
